@@ -10,27 +10,36 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <sys/fcntl.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 void fs_understand_return_of_read(int fd, char * buffer, int size)
 {
-    if (fd == -1)
+    int file;
+
+    file = read(fd, buffer, size);
+    my_putstr("\n");
+    if (file == -1)
         my_putstr("read failed\n");
-    if (fd == 0)
+    if (file == 0)
         my_putstr("read has nothing more to read\n");
-    if (fd < size)
+    if (file < size)
         my_putstr("read didn’t complete the entire buffer\n");
-    if (fd == size)
+    if (file == size)
         my_putstr("read completed the entire buffer\n");
 }
 
 int fs_open_file(char const * filepath)
 {
+    struct stat buf;
     int file = 0;
     char ch;
-    char * buffer;
-    int size = sizeof(buffer);
+    char * buffer = malloc(sizeof(filepath));
+    int size = 0;
 
     file = open(filepath, O_RDONLY);
+    size = fstat(file, &buf);
     if (file == -1)
         my_putstr("FAILURE");
     else
