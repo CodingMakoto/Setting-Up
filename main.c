@@ -80,10 +80,14 @@ int fs_open_file(char const *filepath)
 
 int main(int argc, char **argv)
 {
-    fs_open_file(argv[1]);
-    fs_cat_500_bytes(argv[1]);
-    fs_cat_x_bytes(argv[1], my_getnbr(argv[2]));
-    fs_print_first_line(argv[1]);
-    array_1d_print_chars("hello world");
-    return 0;
+    if (argv[1] == NULL || open(argv[1], O_RDONLY) == -1)
+        my_putstr("No such file or directory");
+    else {
+        fs_open_file(argv[1]);
+        fs_cat_500_bytes(argv[1]);
+        fs_cat_x_bytes(argv[1], my_getnbr(argv[2]));
+        fs_print_first_line(argv[1]);
+        array_1d_print_chars("hello world");
+        return 0;
+    }
 }
