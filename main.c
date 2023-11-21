@@ -6,6 +6,7 @@
 */
 
 #include "my.h"
+#include "bootstrap.h"
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
@@ -14,7 +15,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-void fs_cat_500_bytes(char const * filepath)
+void fs_cat_500_bytes(char const *filepath)
 {
     int file = open(filepath, O_RDONLY);
     char buffer[501];
@@ -25,7 +26,23 @@ void fs_cat_500_bytes(char const * filepath)
     close(file);
 }
 
-void fs_understand_return_of_read(int fd, char * buffer, int size)
+void fs_cat_x_bytes(char const *filepath , int x)
+{
+    int file = open(filepath, O_RDONLY);
+    size_t bytes;
+    char buffer[x + 1];
+
+    if (x == 0)
+        fs_cat_500_bytes(filepath);
+    else {
+        bytes = read(file, buffer, x);
+        buffer[bytes] = '\0';
+        my_putstr(buffer);
+        close(file);
+    }
+}
+
+void fs_understand_return_of_read(int fd, char *buffer, int size)
 {
     int file;
 
@@ -42,16 +59,16 @@ void fs_understand_return_of_read(int fd, char * buffer, int size)
     close(file);
 }
 
-int fs_open_file(char const * filepath)
+int fs_open_file(char const *filepath)
 {
     struct stat buf;
     int file = 0;
-    char * buffer = NULL;
+    char *buffer = NULL;
     int size = 0;
 
     file = open(filepath, O_RDONLY);
     size = fstat(file, &buf);
-    buffer = malloc(buf.st_size * sizeof(char) + 1) ;
+    buffer = malloc(buf.st_size * sizeof(char) + 1);
     if (file == -1)
         my_putstr("FAILURE");
     else
@@ -65,5 +82,8 @@ int main(int argc, char **argv)
 {
     fs_open_file(argv[1]);
     fs_cat_500_bytes(argv[1]);
+    fs_cat_x_bytes(argv[1], my_getnbr(argv[2]));
+    fs_print_first_line(argv[1]);
+    array_1d_print_chars("hello world");
     return 0;
 }

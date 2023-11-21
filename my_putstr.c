@@ -5,7 +5,7 @@
 ** Display char one by one in a string
 */
 
-#include "putchar.h"
+#include "my.h"
 #include <stdio.h>
 #include <unistd.h>
 
