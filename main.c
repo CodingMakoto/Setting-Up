@@ -32,7 +32,7 @@ void fs_cat_x_bytes(char const *filepath , int x)
     size_t bytes;
     char buffer[x + 1];
 
-    if (x == 0)
+    if (!(x))
         fs_cat_500_bytes(filepath);
     else {
         bytes = read(file, buffer, x);
