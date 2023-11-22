@@ -40,7 +40,7 @@ void array_1d_print_chars(char const *arr)
 
     while (arr[i] != '\0') {
         my_putchar(arr[i]);
-        if (arr[i+1] != '\0')
+        if (arr[i + 1] != '\0')
             my_putstr("\n");
         i++;
     }

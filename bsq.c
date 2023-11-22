@@ -15,14 +15,40 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-void print_file(char *buffer)
+void check_lines_second(char *buffer, int new_length, int i, int length)
+{
+    if (buffer[i] != '\n') {
+        new_length++;
+        i++;
+    } else {
+        if (new_length != length)
+            my_putstr("File lines doesn't have the same size\n");
+        i++;
+        new_length = 0;
+    }
+}
+
+void check_lines(char *buffer)
 {
     int i = 0;
+    int length = 0;
+    int new_length = 0;
+    int j = 0;
 
     while (buffer[i] != '\n') {
-        my_putchar(buffer[i]);
         i++;
     }
+    i++;
+    j = i;
+    while (buffer[i] != '\n') {
+        length++;
+        i++;
+    }
+    i = j;
+    while (buffer[i] != '\0') {
+        check_lines_second(buffer, new_length, i, length);
+    }
+    my_putstr(buffer);
 }
 
 void check_numbers(char *buffer, int i)
@@ -40,7 +66,7 @@ void check_numbers(char *buffer, int i)
     else if (!(buffer[0]))
         my_putstr("The file is empty\n");
     else {
-        print_file(buffer);
+        check_lines(buffer);
     }
 }
 

@@ -84,11 +84,6 @@ int main(int argc, char **argv)
         my_putstr("No such file or directory");
     else {
         check_file(argv[1]);
-        /*fs_open_file(argv[1]);
-        fs_cat_500_bytes(argv[1]);
-        fs_cat_x_bytes(argv[1], my_getnbr(argv[2]));
-        fs_print_first_line(argv[1]);
-        array_1d_print_chars("hello world");*/
         return 0;
     }
 }
