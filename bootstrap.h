@@ -12,5 +12,6 @@
 
 void fs_print_first_line(char const *filepath);
 void array_1d_print_chars(char const *arr);
+void check_file(char const *filepath);
 
 #endif /*BOOTSTRAP*/
