@@ -76,7 +76,7 @@ void check_file(char const *filepath)
     int i = 0;
     int warning = 0;
     int file = open(filepath, O_RDONLY);
-    char *buffer = (char *)malloc(sizeof(char) * 256);
+    char *buffer = (char *)malloc(sizeof(char) * 500);
     size_t bytes = read(file, buffer, 500);
 
     my_putstr("\n");
