@@ -20,7 +20,7 @@ void fs_print_first_line(char const *filepath)
     int i = 0;
     int j = 0;
     int file = open(filepath, O_RDONLY);
-    char *buffer = (char *)malloc(sizeof(char) * 256);
+    char *buffer = (char *)malloc(sizeof(char) * 500);
     size_t bytes = read(file, buffer, 500);
 
     my_putstr("\n");

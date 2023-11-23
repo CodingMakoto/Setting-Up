@@ -15,16 +15,19 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-void check_lines_second(char *buffer, int new_length, int i, int length)
+typedef struct compare
 {
-    if (buffer[i] != '\n') {
-        new_length++;
-        i++;
-    } else {
-        if (new_length != length)
+    int new_length;
+} Compare_t;
+
+void check_lines_second(char *buffer, struct compare *value, int i, int length)
+{
+    if (buffer[i] != '\n' && buffer[i] != '\0')
+        value->new_length++;
+    else {
+        if (value->new_length != length && buffer[i] != '\0')
             my_putstr("File lines doesn't have the same size\n");
-        i++;
-        new_length = 0;
+        value->new_length = 0;
     }
 }
 
@@ -32,7 +35,7 @@ void check_lines(char *buffer)
 {
     int i = 0;
     int length = 0;
-    int new_length = 0;
+    Compare_t value = {0};
     int j = 0;
 
     while (buffer[i] != '\n') {
@@ -46,7 +49,8 @@ void check_lines(char *buffer)
     }
     i = j;
     while (buffer[i] != '\0') {
-        check_lines_second(buffer, new_length, i, length);
+        check_lines_second(buffer, &value, i, length);
+        i++;
     }
     my_putstr(buffer);
 }

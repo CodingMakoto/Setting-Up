@@ -67,7 +67,7 @@ int fs_open_file(char const *filepath)
     int size = 0;
 
     file = open(filepath, O_RDONLY);
-    size = fstat(file, &buf);
+    size = stat(filepath, &buf);
     buffer = malloc(buf.st_size * sizeof(char) + 1);
     if (file == -1)
         my_putstr("FAILURE");
