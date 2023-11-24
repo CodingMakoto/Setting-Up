@@ -6,7 +6,7 @@
 */
 
 #include "my.h"
-#include "bootstrap.h"
+#include "bsq.h"
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>

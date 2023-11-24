@@ -10,7 +10,8 @@ SRC = main.c\
       my_putstr.c\
       my_get_number.c\
       bootstrap.c\
-      bsq.c
+      bsq.c\
+      errors.c
 
 OBJ = $(SRC:.c=.o)
 
